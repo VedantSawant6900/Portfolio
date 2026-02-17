@@ -1,0 +1,14 @@
+{
+  "name": "Vedant Sawant Portfolio",
+  "short_name": "Vedant Sawant",
+  "icons": [
+    {
+      "src": "./ateeb-template-files/vs-avatar.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#0f766e",
+  "background_color": "#020617",
+  "display": "standalone"
+}
