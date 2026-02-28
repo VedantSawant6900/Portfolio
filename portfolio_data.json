@@ -1,0 +1,490 @@
+{
+  "name": {
+    "value": "Vedant Sawant",
+    "verification_status": "verified"
+  },
+  "headline": {
+    "value": "Backend, data, and ML engineer building production healthcare systems",
+    "verification_status": "inferred"
+  },
+  "headline_alternatives": [
+    {
+      "value": "I build reliable backend, data, and AI systems for healthcare operations",
+      "verification_status": "inferred"
+    },
+    {
+      "value": "Penn State CS graduate student shipping Databricks pipelines, FastAPI services, and ML workflows",
+      "verification_status": "inferred"
+    },
+    {
+      "value": "From Spark ETL to embedded vision systems, I build software that solves operational problems",
+      "verification_status": "inferred"
+    }
+  ],
+  "location": {
+    "value": "State College, Pennsylvania, United States",
+    "verification_status": "verified"
+  },
+  "email": {
+    "value": "vedant.sawant.6900@gmail.com",
+    "verification_status": "verified",
+    "publish": true
+  },
+  "social_links": [
+    {
+      "platform": "LinkedIn",
+      "url": "https://www.linkedin.com/in/vedantsawant6900/",
+      "verification_status": "verified"
+    },
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/VedantSawant6900",
+      "verification_status": "verified"
+    }
+  ],
+  "ctas": [
+    {
+      "label": "View GitHub",
+      "href": "https://github.com/VedantSawant6900",
+      "verification_status": "verified"
+    },
+    {
+      "label": "Connect on LinkedIn",
+      "href": "https://www.linkedin.com/in/vedantsawant6900/",
+      "verification_status": "verified"
+    },
+    {
+      "label": "Email Vedant",
+      "href": "mailto:vedant.sawant.6900@gmail.com",
+      "verification_status": "verified"
+    },
+    {
+      "label": "Download Resume",
+      "href": "Needs verification",
+      "verification_status": "needs_verification",
+      "note": "Use a portfolio-safe resume PDF path after the final public version is approved."
+    }
+  ],
+  "metrics": [
+    {
+      "label": "Facilities supported",
+      "value": "120+",
+      "verification_status": "verified"
+    },
+    {
+      "label": "OMOP tables orchestrated",
+      "value": "40+",
+      "verification_status": "verified"
+    },
+    {
+      "label": "Parameterized notebooks",
+      "value": "10+",
+      "verification_status": "verified"
+    },
+    {
+      "label": "Refresh time improvement",
+      "value": "3 hours to 15 minutes",
+      "verification_status": "verified"
+    },
+    {
+      "label": "Records evaluated in mortality workflow",
+      "value": "200M+",
+      "verification_status": "verified"
+    },
+    {
+      "label": "Manual dispensing time reduced",
+      "value": "15+ hours/week",
+      "verification_status": "verified"
+    },
+    {
+      "label": "Devices covered by deployment automation",
+      "value": "50+",
+      "verification_status": "verified"
+    },
+    {
+      "label": "Pill images processed",
+      "value": "10,000+",
+      "verification_status": "verified"
+    }
+  ],
+  "skills": {
+    "backend_and_api_engineering": [
+      "Python",
+      "FastAPI",
+      "REST APIs",
+      "Databricks SQL",
+      "CouchDB"
+    ],
+    "data_engineering_and_ml_platforms": [
+      "Databricks",
+      "PySpark",
+      "Delta Live Tables",
+      "ETL pipelines",
+      "Workflow orchestration",
+      "OMOP CDM",
+      "Data-quality checks"
+    ],
+    "cloud_systems_and_devops": [
+      "AWS Lambda",
+      "Amazon S3",
+      "MQTT",
+      "Docker",
+      "Kubernetes",
+      "Linux",
+      "Shell scripting",
+      "GitLab CI/CD"
+    ],
+    "machine_learning_and_ai": [
+      "Feature engineering",
+      "Model evaluation",
+      "Machine learning workflows",
+      "Applied AI prototypes",
+      "Computer vision",
+      "Detectron2",
+      "OpenCV",
+      "Image captioning"
+    ],
+    "additional_tools_and_environments": [
+      "Raspberry Pi",
+      "NXP-based Linux systems",
+      "Embedded image pipelines",
+      "TypeScript"
+    ]
+  },
+  "experience": [
+    {
+      "company": "Geisinger",
+      "role": "Machine Learning Operations Intern",
+      "start_date": "2025-06",
+      "end_date": "Present",
+      "location": "Danville, Pennsylvania, United States",
+      "verification_status": "verified",
+      "highlights": [
+        "Built and maintained production Databricks ETL pipelines using PySpark and Delta Live Tables to convert Epic Clarity EHR data into OMOP CDM.",
+        "Enabled standardised analytics across 120+ facilities.",
+        "Orchestrated daily Databricks workflows across 40+ OMOP tables and 10+ parameterised notebooks.",
+        "Reduced recurring refresh time from 3 hours to 15 minutes by shifting to incremental updates.",
+        "Built a 1-year mortality-risk workflow evaluated across 200M+ records.",
+        "Built internal AI prototypes for OMOP exploration and pipeline knowledge retrieval."
+      ],
+      "optional_metrics_safe_to_publish": [
+        "0.94 AUC",
+        "0.84 recall"
+      ]
+    },
+    {
+      "company": "Meditab Software Inc.",
+      "role": "Software Engineer / Programmer Analyst",
+      "start_date": "2022-07",
+      "end_date": "2024-03",
+      "location": "Ahmedabad, India",
+      "verification_status": "verified",
+      "highlights": [
+        "Built backend and platform components for healthcare products using Python, FastAPI, REST APIs, CouchDB, AWS, Docker, Kubernetes, Linux, and GitLab CI/CD.",
+        "Designed the backend of a drug dispenser using four interdependent finite state machines across 8 devices in 3 pharmacies.",
+        "Reduced manual dispensing time by 15+ hours per week.",
+        "Automated build and deployment workflows across 50+ devices, reducing manual intervention by 80%.",
+        "Implemented a FastAPI service with 10+ endpoints to process 10,000+ pill images.",
+        "Built Linux-based ingestion, embedded, and computer-vision workflows for pharmacy and medication-adherence use cases."
+      ]
+    },
+    {
+      "company": "Penn State University",
+      "role": "Graduate Assistant",
+      "start_date": "2024-09",
+      "end_date": "2025-05",
+      "location": "University Park, Pennsylvania, United States",
+      "verification_status": "verified",
+      "highlights": [
+        "Supported Fundamentals of Computer Graphics and Pattern Recognition with Machine Learning courses.",
+        "Designed or supported assignments, grading, feedback, and project evaluation."
+      ]
+    },
+    {
+      "company": "Madras Scientific Research Foundation",
+      "role": "Machine Learning Intern with Python",
+      "start_date": "2021-07",
+      "end_date": "2021-09",
+      "location": "Mumbai, India",
+      "verification_status": "verified",
+      "highlights": [
+        "Developed a movie ticket pricing model using CatBoost with an R2 score of 0.86.",
+        "Built a computer-vision colour-filtering system using Python and OpenCV with 90% accuracy."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "MeetMind",
+      "slug": "meetmind",
+      "featured": true,
+      "public_ready": true,
+      "verification_status": "verified",
+      "summary": "Live meeting copilot that records microphone audio, transcribes it with Groq Whisper Large V3, surfaces exactly three live suggestions per refresh, and expands clicked suggestions into meeting-ready answers in a persistent session chat.",
+      "repo_url": "https://github.com/VedantSawant6900/meetmind",
+      "demo_url": "Unknown",
+      "tech": [
+        "TypeScript",
+        "Speech transcription",
+        "Prompt workflows",
+        "Session chat"
+      ],
+      "notes": "Selected as a featured project because the public README provides enough detail for responsible portfolio copy."
+    },
+    {
+      "name": "Reinforcement Learning Maze Solver",
+      "slug": "reinforcement-learning-maze-solver",
+      "featured": true,
+      "public_ready": true,
+      "verification_status": "verified",
+      "summary": "Maze-solving reinforcement learning environment for comparing Deep Q-Networks and Q-Learning with configurable epsilon strategies, YAML-driven experiments, and saved training visualizations.",
+      "repo_url": "https://github.com/VedantSawant6900/Reinforcement_Learning_Maze",
+      "demo_url": "Unknown",
+      "tech": [
+        "Python",
+        "PyTorch",
+        "DQN",
+        "Q-Learning",
+        "YAML experiments"
+      ],
+      "supported_claims": [
+        "Public GitHub repo exists",
+        "README documents comparison of DQN and Q-Learning",
+        "README documents configurable epsilon strategies",
+        "README documents YAML-based experiment configuration",
+        "README documents saved results and visualization outputs"
+      ]
+    },
+    {
+      "name": "Improved MeaCap",
+      "slug": "improved-meacap",
+      "featured": true,
+      "public_ready": true,
+      "verification_status": "partially_verified",
+      "summary": "Reproduced and documented an improved implementation of MeaCap for memory-augmented zero-shot image captioning, including external-memory preparation, CLIP-based extraction, scene-graph parsing, sentence-transformer setup, inference, and evaluation.",
+      "repo_url": "https://github.com/VedantSawant6900/MeaCap_Improved",
+      "demo_url": "Unknown",
+      "tech": [
+        "Python",
+        "CLIP",
+        "Sentence transformers",
+        "Image captioning"
+      ],
+      "supported_claims": [
+        "Public GitHub repo exists",
+        "README documents reproduction and evaluation steps",
+        "Repository includes inference and evaluation scripts"
+      ],
+      "unsupported_claims": [
+        "MPNet V2 integration",
+        "5% performance improvement"
+      ]
+    },
+    {
+      "name": "Movie Ticket Pricing Model",
+      "slug": "movie-ticket-pricing-model",
+      "featured": false,
+      "public_ready": true,
+      "verification_status": "verified",
+      "summary": "Movie ticket pricing model using CatBoost with an R2 score of 0.86.",
+      "repo_url": "https://github.com/VedantSawant6900/Movie_Ticket_Pricing_System",
+      "demo_url": "Unknown",
+      "tech": [
+        "Python",
+        "CatBoost",
+        "Regression"
+      ],
+      "notes": "Useful as a secondary project or older archive project, not my first recommendation for the homepage."
+    },
+    {
+      "name": "Colour Filtering with OpenCV",
+      "slug": "colour-filtering-opencv",
+      "featured": false,
+      "public_ready": true,
+      "verification_status": "verified",
+      "summary": "Computer-vision colour-filtering project using Python and OpenCV.",
+      "repo_url": "https://github.com/VedantSawant6900/Colour-Filtering-with-OpenCV",
+      "demo_url": "Unknown",
+      "tech": [
+        "Python",
+        "OpenCV",
+        "Computer vision"
+      ],
+      "notes": "Good supporting project, but better referenced under earlier experience than as a homepage feature."
+    },
+    {
+      "name": "Agentic RAG Assistant",
+      "slug": "agentic-rag-assistant",
+      "featured": false,
+      "public_ready": false,
+      "verification_status": "needs_verification",
+      "summary": "Agentic RAG assistant project mentioned by the user.",
+      "repo_url": "Unknown",
+      "demo_url": "Unknown",
+      "unsupported_claims": [
+        "Python/FastAPI/LangChain/Supabase/OpenAI stack",
+        "Embeddings, chunking, query rewriting, tool calling details"
+      ]
+    },
+    {
+      "name": "Deep Learning Classifier for LLM Identification",
+      "slug": "llm-identification-classifier",
+      "featured": false,
+      "public_ready": false,
+      "verification_status": "needs_verification",
+      "summary": "BERT-based classifier for identifying sources of AI-generated text.",
+      "repo_url": "Unknown",
+      "demo_url": "Unknown",
+      "unsupported_claims": [
+        "13,000-sample dataset",
+        "LLaMA, GPT, Pythia, OPT, and BLOOM source labels",
+        "90% source-identification accuracy",
+        "Public repository or paper URL"
+      ]
+    }
+  ],
+  "selected_featured_project_order": [
+    "meetmind",
+    "reinforcement-learning-maze-solver",
+    "improved-meacap"
+  ],
+  "education": [
+    {
+      "institution": "Penn State University",
+      "degree": "M.S. in Computer Science and Engineering",
+      "start_date": "2024-08",
+      "end_date": "2026-05",
+      "verification_status": "verified",
+      "gpa": "3.89/4.00"
+    },
+    {
+      "institution": "University of Mumbai",
+      "degree": "B.E. in Computer Engineering",
+      "start_date": "2018-08",
+      "end_date": "2022-05",
+      "verification_status": "verified",
+      "gpa": "Unknown"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Certified Kubernetes Application Developer",
+      "verification_status": "verified",
+      "credential_url": "https://drive.google.com/file/d/1X0Q_pABIfutTiAuzLNYNwLCyZK5jhipd/view?usp=sharing"
+    },
+    {
+      "name": "Microsoft Technology Associate: Introduction to Programming using Python",
+      "verification_status": "verified",
+      "credential_url": "https://www.certiport.com/portal/Pages/PrintTranscriptInfo.aspx?action=Cert&id=395&cvid=kqEBk7drst43iL1NT0ZpPg=="
+    },
+    {
+      "name": "IBM Data Science Professional Certificate",
+      "verification_status": "verified",
+      "credential_url": "https://www.coursera.org/account/accomplishments/specialization/certificate/6QWKSKHX56L3",
+      "course_certificates": [
+        {
+          "name": "Python for Data Science, AI & Development",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/YAXD4YEQLE5G"
+        },
+        {
+          "name": "Applied Data Science Capstone",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/LXX7C84T7K96"
+        },
+        {
+          "name": "What is Data Science?",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/KB3QWKYGMTBK"
+        },
+        {
+          "name": "Data Science Methodology",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/DD4K5U7J8EGP"
+        },
+        {
+          "name": "Python Project for Data Science",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/3YGP2NUAJRDP"
+        },
+        {
+          "name": "Databases and SQL for Data Science with Python",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/UCH7SMGNYR3T"
+        },
+        {
+          "name": "Data Analysis with Python",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/586EHGT67R7Y"
+        },
+        {
+          "name": "Tools for Data Science",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/K55SJZPLMG5M"
+        },
+        {
+          "name": "Data Visualization with Python",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/86E9C922UW45"
+        },
+        {
+          "name": "Machine Learning with Python",
+          "credential_url": "https://www.coursera.org/account/accomplishments/certificate/8Z4VGGH6HUKT"
+        }
+      ]
+    },
+    {
+      "name": "AWS Certified Developer Associate",
+      "verification_status": "needs_verification",
+      "credential_url": "Unknown",
+      "publish": false
+    }
+  ],
+  "seo_metadata": {
+    "title": {
+      "value": "Vedant Sawant | Backend, Data & ML Engineer",
+      "verification_status": "inferred"
+    },
+    "meta_description": {
+      "value": "Vedant Sawant portfolio: Penn State CSE graduate student building production backend systems, Databricks pipelines, ML workflows, and healthcare AI tools.",
+      "verification_status": "inferred"
+    },
+    "social_preview_text": {
+      "value": "Backend, data, and AI systems engineer with experience in Databricks, PySpark, FastAPI, AWS, Linux, and computer vision for healthcare.",
+      "verification_status": "inferred"
+    },
+    "og_image": {
+      "value": "Needs verification",
+      "verification_status": "needs_verification"
+    },
+    "site_url": {
+      "value": "Unknown",
+      "verification_status": "unknown"
+    }
+  },
+  "privacy_exclusions": [
+    {
+      "item": "Phone number",
+      "status": "exclude_from_public_site"
+    },
+    {
+      "item": "Exact street address",
+      "status": "exclude_from_public_site"
+    },
+    {
+      "item": "Visa or sponsorship details",
+      "status": "exclude_from_public_site"
+    },
+    {
+      "item": "Confidential healthcare data",
+      "status": "exclude_from_public_site"
+    },
+    {
+      "item": "Patient data",
+      "status": "exclude_from_public_site"
+    },
+    {
+      "item": "Internal screenshots and dashboards",
+      "status": "exclude_from_public_site"
+    },
+    {
+      "item": "Private code or internal documents",
+      "status": "exclude_from_public_site"
+    },
+    {
+      "item": "Manager or teammate names",
+      "status": "exclude_from_public_site"
+    }
+  ]
+}
