@@ -3,7 +3,7 @@
   "short_name": "Vedant Sawant",
   "icons": [
     {
-      "src": "./ateeb-template-files/vs-avatar.svg",
+      "src": "./site-assets/vs-avatar.svg",
       "sizes": "any",
       "type": "image/svg+xml"
     }

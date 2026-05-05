@@ -217,7 +217,7 @@ export function initRobotHero(host) {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-  camera.position.set(0, 0.2, 6.2);
+  camera.position.set(0, 0.02, 6.95);
 
   const ambient = new THREE.AmbientLight(0xaefdf8, 1.85);
   scene.add(ambient);
@@ -236,6 +236,8 @@ export function initRobotHero(host) {
 
   const stage = new THREE.Group();
   stage.rotation.x = -0.08;
+  stage.position.y = -0.08;
+  stage.scale.setScalar(0.88);
   scene.add(stage);
 
   const robot = createRobot();
