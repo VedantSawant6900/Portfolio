@@ -40,26 +40,4 @@
   document.querySelectorAll("[data-skill-tab]").forEach((button) => {
     button.addEventListener("click", () => setSkillTab(button.dataset.skillTab));
   });
-
-  const form = document.querySelector("[data-contact-form]");
-  if (!form) {
-    return;
-  }
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const data = new FormData(form);
-    const name = String(data.get("name") || "").trim();
-    const email = String(data.get("email") || "").trim();
-    const phone = String(data.get("phone") || "").trim();
-    const message = String(data.get("message") || "").trim();
-
-    const subject = encodeURIComponent(`Portfolio message from ${name || "visitor"}`);
-    const body = encodeURIComponent(
-      [`Name: ${name}`, `Email: ${email}`, `Phone: ${phone || "Not provided"}`, "", message].join("\n"),
-    );
-
-    window.location.href = `mailto:vedant.sawant.6900@gmail.com?subject=${subject}&body=${body}`;
-  });
 })();
