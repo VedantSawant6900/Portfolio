@@ -51,6 +51,26 @@ body {
   color: hsl(var(--foreground));
 }
 
+body.page-shell {
+  opacity: 0;
+  transform: translateY(4px) scale(0.998);
+  transition: opacity 80ms ease, transform 90ms ease;
+}
+
+body.page-shell.page-ready {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.page-shell,
+  body.page-shell.page-ready {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 header {
   background:
     linear-gradient(90deg, hsl(var(--background) / 0.84), hsl(220 36% 9% / 0.7), hsl(var(--background) / 0.84)) !important;

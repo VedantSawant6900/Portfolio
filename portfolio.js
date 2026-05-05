@@ -1,4 +1,18 @@
 (() => {
+  const initPageTransitions = () => {
+    const body = document.body;
+    if (!body) {
+      return;
+    }
+
+    body.classList.add("page-shell");
+    window.requestAnimationFrame(() => {
+      body.classList.add("page-ready");
+    });
+  };
+
+  initPageTransitions();
+
   const robotHost = document.querySelector("[data-robot-hero]");
   if (robotHost) {
     import("./robot-hero.js")
