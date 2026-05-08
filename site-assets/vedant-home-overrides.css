@@ -54,9 +54,9 @@ html {
 body {
   background-color: hsl(var(--background));
   background-image:
-    linear-gradient(135deg, hsl(178 84% 52% / 0.16), transparent 24%, hsl(44 94% 55% / 0.08) 46%, transparent 62%, hsl(346 84% 58% / 0.1)),
-    conic-gradient(from 140deg at 50% 28%, hsl(178 84% 52% / 0.18), hsl(219 86% 62% / 0.15), hsl(44 94% 55% / 0.1), hsl(346 84% 58% / 0.08), hsl(178 84% 52% / 0.18)),
-    linear-gradient(180deg, hsl(224 54% 5%), hsl(220 48% 7%) 42%, hsl(222 42% 9%));
+    radial-gradient(1200px 700px at 50% -10%, hsl(188 92% 58% / 0.10), transparent 60%),
+    radial-gradient(900px 500px at 90% 30%, hsl(220 80% 40% / 0.06), transparent 70%),
+    linear-gradient(180deg, hsl(222 50% 5%), hsl(222 45% 7%) 50%, hsl(222 40% 8%));
   color: hsl(var(--foreground));
 }
 
@@ -81,18 +81,19 @@ body.page-shell.page-ready {
 }
 
 header {
-  background:
-    linear-gradient(90deg, hsl(var(--background) / 0.84), hsl(220 36% 9% / 0.7), hsl(var(--background) / 0.84)) !important;
-  border-bottom-color: hsl(178 84% 52% / 0.18) !important;
-  box-shadow: 0 10px 40px hsl(220 60% 2% / 0.28);
+  background: hsl(222 47% 6% / 0.72) !important;
+  border-bottom-color: hsl(215 22% 22% / 0.9) !important;
+  box-shadow: 0 8px 32px hsl(222 60% 2% / 0.3);
+  backdrop-filter: blur(14px);
 }
 
 .min-h-screen.bg-gradient-to-br {
   background-image:
-    linear-gradient(115deg, hsl(178 84% 52% / 0.18), transparent 24%, hsl(219 86% 62% / 0.12) 45%, transparent 64%, hsl(44 94% 55% / 0.1)),
-    linear-gradient(to bottom right, hsl(var(--background)), hsl(220 50% 7%), hsl(222 40% 11%)) !important;
+    radial-gradient(1200px 700px at 50% -10%, hsl(188 92% 58% / 0.08), transparent 60%),
+    linear-gradient(to bottom, hsl(var(--background)), hsl(222 44% 7%) 60%, hsl(222 40% 9%)) !important;
 }
 
+/* Cards: single, calm elevated surface — no rainbow borders */
 .dark .dark\:glass-card-dark,
 .glass-card {
   background:
