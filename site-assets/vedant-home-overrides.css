@@ -97,17 +97,16 @@ header {
 .dark .dark\:glass-card-dark,
 .glass-card {
   background:
-    linear-gradient(145deg, hsl(0 0% 100% / 0.09), hsl(0 0% 100% / 0.025)),
-    hsl(var(--card) / 0.62) !important;
-  border-color: hsl(178 84% 52% / 0.18) !important;
-  box-shadow: 0 24px 80px hsl(222 60% 2% / 0.42), inset 0 1px 0 hsl(0 0% 100% / 0.08) !important;
-  backdrop-filter: blur(18px);
+    linear-gradient(180deg, hsl(220 36% 12% / 0.7), hsl(220 36% 9% / 0.78)) !important;
+  border-color: hsl(215 22% 22% / 0.9) !important;
+  box-shadow: 0 20px 60px hsl(222 60% 2% / 0.35), inset 0 1px 0 hsl(0 0% 100% / 0.04) !important;
+  backdrop-filter: blur(16px);
 }
 
 .glass-card:hover,
 .dark .dark\:glass-card-dark:hover {
-  border-color: hsl(178 84% 52% / 0.34) !important;
-  box-shadow: 0 28px 90px hsl(222 60% 2% / 0.5), 0 0 0 1px hsl(178 84% 52% / 0.1) !important;
+  border-color: hsl(188 92% 58% / 0.36) !important;
+  box-shadow: 0 26px 72px hsl(222 60% 2% / 0.45), 0 0 0 1px hsl(188 92% 58% / 0.12) !important;
 }
 
 img[src$="vs-avatar.svg"] {
