@@ -195,23 +195,12 @@ h1 + p {
 
 /* Skill / role pills — single primary tone, no rainbow rotation */
 .inline-flex.items-center.rounded-full.border {
-  background: linear-gradient(135deg, hsl(178 84% 52% / 0.12), hsl(219 86% 62% / 0.08));
-  border-color: hsl(178 84% 52% / 0.32) !important;
-  color: hsl(178 84% 72%) !important;
+  background: hsl(188 92% 58% / 0.1);
+  border-color: hsl(188 92% 58% / 0.32) !important;
+  color: hsl(188 92% 78%) !important;
 }
 
-.inline-flex.items-center.rounded-full.border:nth-of-type(2n) {
-  background: linear-gradient(135deg, hsl(219 86% 62% / 0.12), hsl(346 84% 58% / 0.08));
-  border-color: hsl(219 86% 62% / 0.34) !important;
-  color: hsl(219 86% 76%) !important;
-}
-
-.inline-flex.items-center.rounded-full.border:nth-of-type(3n) {
-  background: linear-gradient(135deg, hsl(44 94% 55% / 0.14), hsl(178 84% 52% / 0.08));
-  border-color: hsl(44 94% 55% / 0.36) !important;
-  color: hsl(44 94% 70%) !important;
-}
-
+/* CTA buttons — flat primary, only one warm hover lift */
 a.bg-primary,
 button.bg-primary {
   background: linear-gradient(135deg, hsl(178 84% 46%), hsl(219 86% 58%)) !important;
