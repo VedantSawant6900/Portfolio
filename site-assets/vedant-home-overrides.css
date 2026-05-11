@@ -203,14 +203,15 @@ h1 + p {
 /* CTA buttons — flat primary, only one warm hover lift */
 a.bg-primary,
 button.bg-primary {
-  background: linear-gradient(135deg, hsl(178 84% 46%), hsl(219 86% 58%)) !important;
-  color: white !important;
-  box-shadow: 0 16px 44px hsl(178 84% 30% / 0.28);
+  background: hsl(188 92% 50%) !important;
+  color: hsl(222 47% 6%) !important;
+  box-shadow: 0 12px 32px hsl(188 92% 30% / 0.34);
 }
 
 a.bg-primary:hover,
 button.bg-primary:hover {
-  background: linear-gradient(135deg, hsl(178 84% 55%), hsl(219 86% 64%)) !important;
+  background: hsl(188 92% 58%) !important;
+  box-shadow: 0 16px 40px hsl(188 92% 30% / 0.4);
 }
 
 section h2 {
