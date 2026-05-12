@@ -215,21 +215,23 @@ button.bg-primary:hover {
 }
 
 section h2 {
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
+  color: hsl(210 30% 96%);
 }
 
 main > section.text-center:first-child {
   margin-bottom: 3.5rem;
 }
 
+/* H2 underline — restrained two-tone accent, not full rainbow */
 section h2::after {
   content: "";
   display: block;
-  width: 4rem;
-  height: 3px;
-  margin-top: 0.55rem;
+  width: 3.25rem;
+  height: 2px;
+  margin-top: 0.6rem;
   border-radius: 999px;
-  background: linear-gradient(90deg, hsl(178 84% 52%), hsl(44 94% 55%), hsl(346 84% 58%));
+  background: linear-gradient(90deg, hsl(188 92% 58%), hsl(42 96% 62%));
 }
 
 .skill-card {
