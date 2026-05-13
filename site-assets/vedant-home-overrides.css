@@ -656,6 +656,25 @@ footer {
   margin-bottom: 4rem;
 }
 
+/* Nav links — calmer hover */
+header nav a {
+  color: hsl(210 30% 80%);
+}
+
+header nav a:hover {
+  color: hsl(188 92% 78%);
+}
+
+header nav a.bg-primary\/10 {
+  background: hsl(188 92% 58% / 0.12) !important;
+  color: hsl(188 92% 78%) !important;
+}
+
+/* Quiet down the bg canvas overlay so cards read cleaner */
+canvas[style*="mix-blend-mode"] {
+  opacity: 0.55 !important;
+}
+
 @media (max-width: 767px) {
   .cert-card {
     min-height: auto;
