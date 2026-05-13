@@ -89,52 +89,96 @@ function createRobot() {
   head.add(antennaPivot);
 
   const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.04, 0.42, 16), accentMaterial);
-  antenna.position.y = 0.2;
+  head.add(earLeftAccent);
+
+  const earRight = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.18, 24), darkPanelMaterial);
+  earRight.rotation.z = Math.PI / 2;
+  earRight.position.set(0.7, 0.04, 0);
+  head.add(earRight);
+
+  const earRightAccent = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.2, 24), accentMaterial);
+  earRightAccent.rotation.z = Math.PI / 2;
+  earRightAccent.position.set(0.74, 0.04, 0);
+  head.add(earRightAccent);
+
+  // Antenna
+  const antennaPivot = new THREE.Group();
+  antennaPivot.position.set(0, 0.54, 0);
+  head.add(antennaPivot);
+
+  const antennaBase = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 0.08, 16), trimMaterial);
+  antennaBase.position.y = 0.04;
+  antennaPivot.add(antennaBase);
+
+  const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.03, 0.42, 16), trimMaterial);
+  antenna.position.y = 0.28;
   antennaPivot.add(antenna);
 
-  const antennaTip = new THREE.Mesh(new THREE.SphereGeometry(0.08, 16, 16), glowMaterial);
-  antennaTip.position.y = 0.44;
+  const antennaTip = new THREE.Mesh(new THREE.SphereGeometry(0.095, 20, 20), glowMaterial);
+  antennaTip.position.y = 0.54;
   antennaPivot.add(antennaTip);
 
-  const leftArm = new THREE.Group();
-  leftArm.position.set(-0.95, 0.92, 0);
+  // Arms
+  const buildArm = (sign) => {
+    const arm = new THREE.Group();
+    arm.position.set(0.92 * sign, 0.92, 0);
+
+    const shoulder = new THREE.Mesh(new THREE.SphereGeometry(0.24, 20, 20), darkPanelMaterial);
+    arm.add(shoulder);
+
+    const upperArm = panel(0.32, 0.86, 0.34, shellMaterial);
+    upperArm.position.y = -0.5;
+    arm.add(upperArm);
+
+    const elbow = new THREE.Mesh(new THREE.SphereGeometry(0.15, 18, 18), accentMaterial);
+    elbow.position.y = -0.92;
+    arm.add(elbow);
+
+    const forearm = panel(0.28, 0.5, 0.3, shellMaterial);
+    forearm.position.y = -1.18;
+    arm.add(forearm);
+
+    const hand = new THREE.Mesh(new THREE.SphereGeometry(0.2, 22, 22), darkPanelMaterial);
+    hand.position.y = -1.5;
+    arm.add(hand);
+
+    const handAccent = new THREE.Mesh(new THREE.SphereGeometry(0.07, 18, 18), glowMaterial);
+    handAccent.position.set(0, -1.5, 0.18);
+    arm.add(handAccent);
+
+    return arm;
+  };
+
+  const leftArm = buildArm(-1);
   root.add(leftArm);
 
-  const leftUpperArm = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.94, 0.28), shellMaterial);
-  leftUpperArm.position.y = -0.45;
-  leftArm.add(leftUpperArm);
-
-  const leftHand = new THREE.Mesh(new THREE.SphereGeometry(0.14, 16, 16), accentMaterial);
-  leftHand.position.y = -0.95;
-  leftArm.add(leftHand);
-
-  const rightArm = new THREE.Group();
-  rightArm.position.set(0.95, 0.92, 0);
+  const rightArm = buildArm(1);
   root.add(rightArm);
 
-  const rightUpperArm = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.94, 0.28), shellMaterial);
-  rightUpperArm.position.y = -0.45;
-  rightArm.add(rightUpperArm);
+  // Hip bar
+  const hipBar = panel(1.2, 0.22, 0.78, darkPanelMaterial);
+  hipBar.position.y = -0.74;
+  root.add(hipBar);
 
-  const rightHand = new THREE.Mesh(new THREE.SphereGeometry(0.14, 16, 16), accentMaterial);
-  rightHand.position.y = -0.95;
-  rightArm.add(rightHand);
+  // Legs
+  const buildLeg = (sign) => {
+    const leg = new THREE.Group();
+    leg.position.set(0.36 * sign, -0.94, 0);
 
-  const leftLeg = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.96, 0.34), shellMaterial);
-  leftLeg.position.set(-0.34, -1.06, 0);
-  root.add(leftLeg);
+    const upper = panel(0.4, 0.8, 0.4, shellMaterial);
+    upper.position.y = -0.18;
+    leg.add(upper);
 
-  const rightLeg = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.96, 0.34), shellMaterial);
-  rightLeg.position.set(0.34, -1.06, 0);
-  root.add(rightLeg);
+    const knee = new THREE.Mesh(new THREE.SphereGeometry(0.17, 18, 18), accentMaterial);
+    knee.position.y = -0.6;
+    leg.add(knee);
 
-  const leftFoot = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.16, 0.72), trimMaterial);
-  leftFoot.position.set(-0.34, -1.58, 0.1);
-  root.add(leftFoot);
+    const shin = panel(0.36, 0.46, 0.36, shellMaterial);
+    shin.position.y = -0.86;
+    leg.add(shin);
 
-  const rightFoot = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.16, 0.72), trimMaterial);
-  rightFoot.position.set(0.34, -1.58, 0.1);
-  root.add(rightFoot);
+    const foot = panel(0.52, 0.18, 0.78, trimMaterial);
+    foot.position.set(0, -1.16, 0.08);
     leg.add(foot);
 
     return leg;
