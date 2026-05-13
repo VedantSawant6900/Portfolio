@@ -180,30 +180,6 @@ function createPlatform() {
       emissiveIntensity: 0.95,
       metalness: 0.22,
       roughness: 0.25,
-    }),
-  );
-  ring.rotation.x = Math.PI / 2;
-  ring.position.y = -1.64;
-  platform.add(ring);
-
-  return { platform, ring };
-}
-
-export function initRobotHero(host) {
-  if (!host || host.dataset.robotReady === "true" || !window.WebGLRenderingContext) {
-    return;
-  }
-
-  const canvas = document.createElement("canvas");
-  canvas.className = "robot-hero-canvas";
-  host.prepend(canvas);
-
-  let renderer;
-  try {
-    renderer = new THREE.WebGLRenderer({
-      canvas,
-      alpha: true,
-      antialias: true,
       powerPreference: "high-performance",
     });
   } catch (error) {
@@ -214,17 +190,85 @@ export function initRobotHero(host) {
   renderer.setClearColor(0x000000, 0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-  camera.position.set(0, 0.02, 7.2);
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
+  camera.position.set(0, 0.2, 7.6);
 
-  const ambient = new THREE.AmbientLight(0xaefdf8, 1.85);
+  const ambient = new THREE.AmbientLight(0xc8e8ff, 0.9);
   scene.add(ambient);
 
-  const keyLight = new THREE.DirectionalLight(0x74fff7, 2.8);
-  keyLight.position.set(2.8, 4.4, 3.6);
+  const keyLight = new THREE.DirectionalLight(0xffffff, 1.6);
+  keyLight.position.set(3.2, 4.6, 4.2);
   scene.add(keyLight);
+
+  const rimLight = new THREE.DirectionalLight(0x22d3ee, 1.1);
+  rimLight.position.set(-3.8, 1.6, -2.6);
+  scene.add(rimLight);
+
+  const warmFill = new THREE.PointLight(0xfacc15, 6, 12, 2);
+  warmFill.position.set(2.6, -1.4, 3.2);
+  scene.add(warmFill);
+
+  const fillLight = new THREE.PointLight(0x6366f1, 10, 10, 2);
+  fillLight.position.set(-2.4, 1.2, 3.2);
+  scene.add(fillLight);
+
+  const stage = new THREE.Group();
+  stage.rotation.x = -0.05;
+  stage.position.y = 0.1;
+  stage.scale.setScalar(0.78);
+  scene.add(stage);
+
+  const robot = createRobot();
+  const platform = createPlatform();
+  stage.add(robot.root);
+  stage.add(platform.platform);
+
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const pointer = {
+    targetX: 0,
+    targetY: 0,
+    x: 0,
+    y: 0,
+    inside: false,
+  };
+
+  const drag = {
+    active: false,
+    startX: 0,
+    startY: 0,
+    lastX: 0,
+    lastY: 0,
+    rotX: 0,
+    rotY: 0,
+    velX: 0,
+    velY: 0,
+    pointerId: null,
+    moved: false,
+  };
+
+  let waveTimer = 0;
+  let bounce = 0;
+  let hoverStrength = 0;
+
+  const resize = () => {
+    const width = host.clientWidth;
+    const height = host.clientHeight;
+    if (!width || !height) {
+      return;
+    }
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+  };
+
+  const observer = new ResizeObserver(resize);
+  observer.observe(host);
+  resize();
 
   const setCursor = (value) => {
     canvas.style.cursor = value;
