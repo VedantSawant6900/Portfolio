@@ -272,43 +272,87 @@ export function initRobotHero(host) {
     const x = (event.clientX - rect.left) / rect.width;
     const y = (event.clientY - rect.top) / rect.height;
     pointerTargetX = clamp((x - 0.5) * 2, -1, 1);
-    pointerTargetY = clamp((y - 0.5) * 2, -1, 1);
-  });
-
-  host.addEventListener("pointerleave", () => {
-    pointerTargetX = 0;
-    pointerTargetY = 0;
-  });
-
-  host.addEventListener("click", () => {
-    spinBoost += 0.9;
-  });
+    if (!pointer.inside) return;
+    event.preventDefault();
+    const next = clamp(stage.scale.x + event.deltaY * -0.0008, 0.62, 1.05);
+    stage.scale.setScalar(next);
+  }, { passive: false });
 
   const clock = new THREE.Clock();
 
   const animate = () => {
     const elapsed = clock.getElapsedTime();
-    const motionScale = reducedMotion.matches ? 0.35 : 1;
+    const dt = clock.getDelta();
+    const motionScale = reducedMotion.matches ? 0.3 : 1;
 
-    pointerX += (pointerTargetX - pointerX) * 0.06;
-    pointerY += (pointerTargetY - pointerY) * 0.06;
-    spinBoost *= 0.94;
+    pointer.x = lerp(pointer.x, pointer.targetX, 0.08);
+    pointer.y = lerp(pointer.y, pointer.targetY, 0.08);
 
-    robot.root.position.y = Math.sin(elapsed * 1.55) * 0.1 * motionScale - 0.02;
-    robot.root.rotation.y = Math.sin(elapsed * 0.45) * 0.16 * motionScale + pointerX * 0.45 + spinBoost;
-    robot.root.rotation.x = -0.06 + pointerY * 0.18;
-    robot.head.rotation.y = Math.sin(elapsed * 0.9) * 0.18 * motionScale;
-    robot.head.rotation.z = Math.sin(elapsed * 0.7) * 0.06 * motionScale;
-    robot.leftArm.rotation.z = -0.42 + Math.sin(elapsed * 1.45) * 0.12 * motionScale;
-    robot.rightArm.rotation.z = 0.52 + Math.sin(elapsed * 2.4) * 0.48 * motionScale;
-    robot.rightArm.rotation.x = Math.cos(elapsed * 1.65) * 0.16 * motionScale;
-    robot.antennaPivot.rotation.z = Math.sin(elapsed * 2.8) * 0.14 * motionScale;
-    platform.ring.rotation.z += 0.01 * motionScale;
-    stage.rotation.y = pointerX * 0.12;
+    if (!drag.active) {
+      drag.rotY += drag.velX;
+      drag.rotX += drag.velY;
+      drag.rotX = clamp(drag.rotX, -0.6, 0.6);
+      drag.velX *= 0.93;
+      drag.velY *= 0.93;
+    }
 
-    const blinkPhase = (elapsed * 0.8) % 4;
-    const blinkScale = blinkPhase > 3.78 ? 0.12 : 1;
-    robot.eyes.scale.y = blinkScale;
+    hoverStrength = lerp(hoverStrength, pointer.inside ? 1 : 0, 0.08);
+
+    waveTimer = Math.max(0, waveTimer - dt);
+    bounce *= 0.92;
+
+    const idleSpin = (drag.active || Math.abs(drag.velX) > 0.001)
+      ? 0
+      : Math.sin(elapsed * 0.45) * 0.18 * motionScale;
+
+    robot.root.rotation.y = drag.rotY + idleSpin + pointer.x * 0.18;
+    robot.root.rotation.x = drag.rotX - 0.04 + pointer.y * 0.08;
+    robot.root.position.y = Math.sin(elapsed * 1.6) * 0.08 * motionScale + bounce;
+
+    const headYaw = pointer.x * 0.55 - drag.rotY * 0.25;
+    const headPitch = -pointer.y * 0.32 - drag.rotX * 0.2;
+    robot.head.rotation.y = lerp(robot.head.rotation.y, headYaw, 0.12);
+    robot.head.rotation.x = lerp(robot.head.rotation.x, headPitch, 0.12);
+    robot.head.rotation.z = Math.sin(elapsed * 0.7) * 0.04 * motionScale;
+
+    const eyeX = pointer.x * 0.04;
+    const eyeY = -pointer.y * 0.025;
+    robot.eyeLeft.position.x = -0.21 + eyeX;
+    robot.eyeRight.position.x = 0.21 + eyeX;
+    robot.eyeLeft.position.y = eyeY;
+    robot.eyeRight.position.y = eyeY;
+
+    const blinkPhase = (elapsed * 0.6) % 5;
+    const blinking = blinkPhase > 4.82;
+    robot.eyes.scale.y = blinking ? 0.1 : 1;
+
+    const targetMouthScale = 1 + hoverStrength * 0.4;
+    robot.mouth.scale.x = lerp(robot.mouth.scale.x, targetMouthScale, 0.12);
+    robot.cheekLeft.scale.setScalar(lerp(robot.cheekLeft.scale.x, 1 + hoverStrength * 0.3, 0.1));
+    robot.cheekRight.scale.setScalar(lerp(robot.cheekRight.scale.x, 1 + hoverStrength * 0.3, 0.1));
+
+    robot.leftArm.rotation.z = -0.18 + Math.sin(elapsed * 1.3) * 0.05 * motionScale;
+    robot.leftArm.rotation.x = Math.sin(elapsed * 0.9) * 0.04 * motionScale;
+
+    if (waveTimer > 0) {
+      const phase = (1.6 - Math.min(1.6, waveTimer)) * 6;
+      robot.rightArm.rotation.z = lerp(robot.rightArm.rotation.z, -2.0 + Math.sin(phase) * 0.45, 0.18);
+      robot.rightArm.rotation.x = Math.cos(phase) * 0.2;
+    } else {
+      robot.rightArm.rotation.z = lerp(robot.rightArm.rotation.z, 0.18 + Math.sin(elapsed * 1.6) * 0.06 * motionScale, 0.1);
+      robot.rightArm.rotation.x = lerp(robot.rightArm.rotation.x, Math.sin(elapsed * 1.1) * 0.05 * motionScale, 0.1);
+    }
+
+    const wobbleSpeed = drag.active ? 5 : 2.4;
+    robot.antennaPivot.rotation.z = Math.sin(elapsed * wobbleSpeed) * (0.08 + hoverStrength * 0.12) * motionScale;
+    robot.antennaPivot.rotation.x = Math.cos(elapsed * wobbleSpeed * 0.85) * 0.05 * motionScale;
+
+    const pulse = 0.7 + Math.sin(elapsed * 2.6) * 0.3;
+    robot.antennaTip.material.emissiveIntensity = pulse * 1.6;
+    robot.heart.material.emissiveIntensity = 1.2 + Math.sin(elapsed * 3.6) * 0.4;
+
+    platform.ring.rotation.z += 0.012 * motionScale;
+    platform.innerRing.rotation.z -= 0.02 * motionScale;
 
     renderer.render(scene, camera);
     window.requestAnimationFrame(animate);
