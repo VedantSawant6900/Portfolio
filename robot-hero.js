@@ -43,52 +43,95 @@ function createRobot() {
 
   const bodyTrim = new THREE.Mesh(new THREE.BoxGeometry(1.18, 1.48, 0.12), trimMaterial);
   bodyTrim.position.set(0, 0.2, 0.49);
-  root.add(bodyTrim);
+  root.add(body);
 
-  const screen = new THREE.Mesh(new THREE.BoxGeometry(0.86, 0.62, 0.08), glowMaterial);
-  screen.position.set(0, 0.38, 0.54);
-  root.add(screen);
+  // Chest dark panel
+  const torsoPanel = panel(1.05, 1.18, 0.06, darkPanelMaterial);
+  torsoPanel.position.set(0, 0.22, 0.5);
+  root.add(torsoPanel);
 
-  const screenLineLeft = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.07, 0.03), accentMaterial);
-  screenLineLeft.position.set(-0.2, 0.15, 0.58);
-  root.add(screenLineLeft);
+  // Heart light
+  const heart = new THREE.Mesh(new THREE.CircleGeometry(0.12, 32), glowMaterial);
+  heart.position.set(0, 0.6, 0.535);
+  root.add(heart);
 
-  const screenLineRight = new THREE.Mesh(new THREE.BoxGeometry(0.3, 0.07, 0.03), accentMaterial);
-  screenLineRight.position.set(0.1, 0.15, 0.58);
-  root.add(screenLineRight);
+  // Chest lines
+  const chestLineA = panel(0.55, 0.04, 0.02, accentMaterial);
+  chestLineA.position.set(0, 0.32, 0.535);
+  root.add(chestLineA);
 
+  const chestLineB = panel(0.34, 0.04, 0.02, warmAccentMaterial);
+  chestLineB.position.set(-0.1, 0.18, 0.535);
+  root.add(chestLineB);
+
+  const chestLineC = panel(0.22, 0.04, 0.02, accentMaterial);
+  chestLineC.position.set(0.18, 0.04, 0.535);
+  root.add(chestLineC);
+
+  // Shoulder rig
+  const shoulderRig = panel(1.86, 0.34, 0.7, darkPanelMaterial);
+  shoulderRig.position.set(0, 1.04, 0);
+  root.add(shoulderRig);
+
+  // Neck
+  const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.26, 0.18, 24), trimMaterial);
+  neck.position.y = 1.32;
+  root.add(neck);
+
+  // Head group
   const head = new THREE.Group();
-  head.position.y = 1.72;
+  head.position.y = 1.82;
   root.add(head);
 
-  const headMesh = new THREE.Mesh(new THREE.BoxGeometry(1.32, 1.05, 1.02), shellMaterial);
+  const headMesh = panel(1.32, 1.08, 1.1, shellMaterial);
   head.add(headMesh);
 
-  const facePlate = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.72, 0.08), trimMaterial);
-  facePlate.position.z = 0.53;
-  head.add(facePlate);
+  // Top accent stripe
+  const headTopAccent = panel(1.06, 0.06, 0.86, accentMaterial);
+  headTopAccent.position.y = 0.56;
+  head.add(headTopAccent);
 
+  // Visor (dark glossy face)
+  const visor = panel(1.04, 0.5, 0.06, visorMaterial);
+  visor.position.set(0, 0.12, 0.56);
+  head.add(visor);
+
+  // Eyes group (so we can scale on blink)
   const eyes = new THREE.Group();
-  eyes.position.set(0, 0.08, 0.58);
+  eyes.position.set(0, 0.12, 0.595);
   head.add(eyes);
 
-  const eyeLeft = new THREE.Mesh(new THREE.SphereGeometry(0.1, 24, 24), glowMaterial);
-  eyeLeft.position.x = -0.2;
+  const eyeLeft = new THREE.Mesh(new THREE.SphereGeometry(0.085, 24, 24), glowMaterial);
+  eyeLeft.position.x = -0.21;
   eyes.add(eyeLeft);
 
-  const eyeRight = new THREE.Mesh(new THREE.SphereGeometry(0.1, 24, 24), glowMaterial);
-  eyeRight.position.x = 0.2;
+  const eyeRight = new THREE.Mesh(new THREE.SphereGeometry(0.085, 24, 24), glowMaterial);
+  eyeRight.position.x = 0.21;
   eyes.add(eyeRight);
 
-  const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.07, 0.03), accentMaterial);
-  mouth.position.set(0, -0.18, 0.59);
+  // Cheeks (warm dots)
+  const cheekLeft = new THREE.Mesh(new THREE.CircleGeometry(0.055, 24), warmAccentMaterial);
+  cheekLeft.position.set(-0.42, -0.12, 0.56);
+  head.add(cheekLeft);
+
+  const cheekRight = new THREE.Mesh(new THREE.CircleGeometry(0.055, 24), warmAccentMaterial);
+  cheekRight.position.set(0.42, -0.12, 0.56);
+  head.add(cheekRight);
+
+  // Mouth
+  const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.05, 0.02), accentMaterial);
+  mouth.position.set(0, -0.22, 0.56);
   head.add(mouth);
 
-  const antennaPivot = new THREE.Group();
-  antennaPivot.position.set(0.18, 0.52, 0);
-  head.add(antennaPivot);
+  // Side "ear" caps
+  const earLeft = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.18, 24), darkPanelMaterial);
+  earLeft.rotation.z = Math.PI / 2;
+  earLeft.position.set(-0.7, 0.04, 0);
+  head.add(earLeft);
 
-  const antenna = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.04, 0.42, 16), accentMaterial);
+  const earLeftAccent = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.2, 24), accentMaterial);
+  earLeftAccent.rotation.z = Math.PI / 2;
+  earLeftAccent.position.set(-0.74, 0.04, 0);
   head.add(earLeftAccent);
 
   const earRight = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 0.18, 24), darkPanelMaterial);
