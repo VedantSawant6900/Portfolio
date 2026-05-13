@@ -356,8 +356,8 @@ textarea:focus {
 }
 
 footer {
-  background: linear-gradient(90deg, hsl(220 44% 7% / 0.74), hsl(220 36% 10% / 0.74));
-  border-top-color: hsl(178 84% 52% / 0.16) !important;
+  background: hsl(222 44% 7% / 0.78);
+  border-top-color: hsl(215 22% 22% / 0.9) !important;
 }
 
 .experience-card {
