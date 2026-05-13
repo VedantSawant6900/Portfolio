@@ -135,24 +135,30 @@ function createRobot() {
   const rightFoot = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.16, 0.72), trimMaterial);
   rightFoot.position.set(0.34, -1.58, 0.1);
   root.add(rightFoot);
+    leg.add(foot);
 
-  const shoulderLeft = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 16), accentMaterial);
-  shoulderLeft.position.set(-0.95, 0.92, 0);
-  root.add(shoulderLeft);
+    return leg;
+  };
 
-  const shoulderRight = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 16), accentMaterial);
-  shoulderRight.position.set(0.95, 0.92, 0);
-  root.add(shoulderRight);
+  root.add(buildLeg(-1));
+  root.add(buildLeg(1));
 
-  root.scale.setScalar(1.05);
+  root.scale.setScalar(1.02);
 
   return {
     root,
     head,
     eyes,
+    eyeLeft,
+    eyeRight,
     antennaPivot,
+    antennaTip,
     leftArm,
     rightArm,
+    heart,
+    cheekLeft,
+    cheekRight,
+    mouth,
   };
 }
 
@@ -160,26 +166,64 @@ function createPlatform() {
   const platform = new THREE.Group();
 
   const base = new THREE.Mesh(
-    new THREE.CylinderGeometry(1.78, 1.98, 0.26, 48),
+    new THREE.CylinderGeometry(1.82, 2.04, 0.28, 64),
     new THREE.MeshStandardMaterial({
-      color: 0x102038,
-      metalness: 0.52,
-      roughness: 0.42,
-      emissive: 0x07101f,
-      emissiveIntensity: 0.28,
+      color: 0x0b1424,
+      metalness: 0.6,
+      roughness: 0.5,
     }),
   );
-  base.position.y = -1.78;
+  base.position.y = -2.32;
   platform.add(base);
 
   const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(1.55, 0.06, 18, 64),
+    new THREE.TorusGeometry(1.56, 0.04, 18, 96),
     new THREE.MeshStandardMaterial({
-      color: 0x69fff7,
-      emissive: 0x33f7ff,
-      emissiveIntensity: 0.95,
-      metalness: 0.22,
+      color: 0x67e8f9,
+      emissive: 0x22d3ee,
+      emissiveIntensity: 1.4,
+      metalness: 0.1,
       roughness: 0.25,
+    }),
+  );
+  ring.rotation.x = Math.PI / 2;
+  ring.position.y = -2.18;
+  platform.add(ring);
+
+  const innerRing = new THREE.Mesh(
+    new THREE.TorusGeometry(1.24, 0.022, 16, 80),
+    new THREE.MeshStandardMaterial({
+      color: 0xfacc15,
+      emissive: 0xfacc15,
+      emissiveIntensity: 0.9,
+      metalness: 0.1,
+      roughness: 0.3,
+    }),
+  );
+  innerRing.rotation.x = Math.PI / 2;
+  innerRing.position.y = -2.16;
+  platform.add(innerRing);
+
+  return { platform, ring, innerRing };
+}
+
+export function initRobotHero(host) {
+  if (!host || host.dataset.robotReady === "true" || !window.WebGLRenderingContext) {
+    return;
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.className = "robot-hero-canvas";
+  canvas.setAttribute("aria-label", "Interactive 3D robot — drag to rotate, click to wave");
+  canvas.style.touchAction = "none";
+  host.prepend(canvas);
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
       powerPreference: "high-performance",
     });
   } catch (error) {
