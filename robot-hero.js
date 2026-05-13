@@ -226,52 +226,95 @@ export function initRobotHero(host) {
   keyLight.position.set(2.8, 4.4, 3.6);
   scene.add(keyLight);
 
-  const rimLight = new THREE.DirectionalLight(0xffd166, 1.4);
-  rimLight.position.set(-3.6, 2.2, -2.4);
-  scene.add(rimLight);
+  const setCursor = (value) => {
+    canvas.style.cursor = value;
+  };
+  setCursor("grab");
 
-  const fillLight = new THREE.PointLight(0x5aa9ff, 18, 10, 2);
-  fillLight.position.set(0, 1.2, 2.8);
-  scene.add(fillLight);
+  // Global pointer move so eyes follow even outside the canvas.
+  window.addEventListener("pointermove", (event) => {
+    const rect = host.getBoundingClientRect();
+    if (!rect.width || !rect.height) return;
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    pointer.targetX = clamp((event.clientX - cx) / (rect.width * 1.8), -1, 1);
+    pointer.targetY = clamp((event.clientY - cy) / (rect.height * 1.8), -1, 1);
+  });
 
-  const stage = new THREE.Group();
-  stage.rotation.x = -0.08;
-  stage.position.y = -0.1;
-  stage.scale.setScalar(0.82);
-  scene.add(stage);
+  canvas.addEventListener("pointerenter", () => {
+    pointer.inside = true;
+  });
 
-  const robot = createRobot();
-  const platform = createPlatform();
-  stage.add(robot.root);
-  stage.add(platform.platform);
+  canvas.addEventListener("pointerleave", () => {
+    pointer.inside = false;
+  });
 
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let pointerTargetX = 0;
-  let pointerTargetY = 0;
-  let pointerX = 0;
-  let pointerY = 0;
-  let spinBoost = 0;
-
-  const resize = () => {
-    const width = host.clientWidth;
-    const height = host.clientHeight;
-    if (!width || !height) {
-      return;
+  canvas.addEventListener("pointerdown", (event) => {
+    drag.active = true;
+    drag.startX = event.clientX;
+    drag.startY = event.clientY;
+    drag.lastX = event.clientX;
+    drag.lastY = event.clientY;
+    drag.velX = 0;
+    drag.velY = 0;
+    drag.pointerId = event.pointerId;
+    drag.moved = false;
+    setCursor("grabbing");
+    try {
+      canvas.setPointerCapture(event.pointerId);
+    } catch (_) {
+      /* noop */
     }
-    renderer.setSize(width, height, false);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+    event.preventDefault();
+  });
+
+  canvas.addEventListener("pointermove", (event) => {
+    if (!drag.active) return;
+    const dx = event.clientX - drag.lastX;
+    const dy = event.clientY - drag.lastY;
+    drag.lastX = event.clientX;
+    drag.lastY = event.clientY;
+    drag.rotY += dx * 0.0095;
+    drag.rotX += dy * 0.006;
+    drag.rotX = clamp(drag.rotX, -0.6, 0.6);
+    drag.velX = dx * 0.0095;
+    drag.velY = dy * 0.006;
+    if (Math.abs(event.clientX - drag.startX) + Math.abs(event.clientY - drag.startY) > 4) {
+      drag.moved = true;
+    }
+  });
+
+  const endDrag = (event) => {
+    if (!drag.active) return;
+    drag.active = false;
+    setCursor("grab");
+    try {
+      if (event && drag.pointerId != null) {
+        canvas.releasePointerCapture(drag.pointerId);
+      }
+    } catch (_) {
+      /* noop */
+    }
+    drag.pointerId = null;
   };
 
-  const observer = new ResizeObserver(resize);
-  observer.observe(host);
-  resize();
+  canvas.addEventListener("pointerup", (event) => {
+    const wasDrag = drag.moved;
+    endDrag(event);
+    if (!wasDrag) {
+      waveTimer = 1.6;
+      bounce = 0.45;
+    }
+  });
 
-  host.addEventListener("pointermove", (event) => {
-    const rect = host.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-    pointerTargetX = clamp((x - 0.5) * 2, -1, 1);
+  canvas.addEventListener("pointercancel", endDrag);
+
+  canvas.addEventListener("dblclick", () => {
+    waveTimer = 2.4;
+    bounce = 0.7;
+  });
+
+  canvas.addEventListener("wheel", (event) => {
     if (!pointer.inside) return;
     event.preventDefault();
     const next = clamp(stage.scale.x + event.deltaY * -0.0008, 0.62, 1.05);
