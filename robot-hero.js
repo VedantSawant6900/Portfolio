@@ -1,48 +1,92 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.min.js";
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js";
 
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+const lerp = (a, b, t) => a + (b - a) * t;
+
+const PALETTE = {
+  shell: 0xe9f4fb,
+  shellDark: 0x122033,
+  trim: 0x0b1424,
+  accent: 0x22d3ee,
+  accentWarm: 0xfacc15,
+  glow: 0x67e8f9,
+  visor: 0x0a1626,
+};
+
+/**
+ * Minimal rounded-box shape — no addon dependency.
+ * Builds a body from a center box plus 6 thin slab pieces with bevelled spheres at the corners.
+ * For visual fidelity we keep it simple: scaled BoxGeometry with material that reads as soft.
+ * If we really need rounded edges, we use ShapeGeometry + extrude — but for a small hero figure
+ * a plain BoxGeometry with good lighting is more than enough.
+ */
+function panel(w, h, d, material) {
+  return new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
+}
 
 function createRobot() {
   const root = new THREE.Group();
 
   const shellMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0x8ff7f5,
-    metalness: 0.44,
-    roughness: 0.18,
-    clearcoat: 0.85,
-    clearcoatRoughness: 0.16,
-    emissive: 0x0a4f53,
-    emissiveIntensity: 0.32,
+    color: PALETTE.shell,
+    metalness: 0.4,
+    roughness: 0.32,
+    clearcoat: 1,
+    clearcoatRoughness: 0.14,
+    sheen: 0.5,
+    sheenColor: new THREE.Color(0x88c5d6),
+    reflectivity: 0.6,
+  });
+
+  const darkPanelMaterial = new THREE.MeshPhysicalMaterial({
+    color: PALETTE.shellDark,
+    metalness: 0.6,
+    roughness: 0.4,
+    clearcoat: 0.8,
+    clearcoatRoughness: 0.2,
   });
 
   const trimMaterial = new THREE.MeshStandardMaterial({
-    color: 0x0f172a,
-    metalness: 0.28,
-    roughness: 0.62,
+    color: PALETTE.trim,
+    metalness: 0.5,
+    roughness: 0.5,
   });
 
   const accentMaterial = new THREE.MeshStandardMaterial({
-    color: 0xf7cf63,
-    metalness: 0.5,
+    color: PALETTE.accent,
+    metalness: 0.4,
     roughness: 0.28,
-    emissive: 0x7a5d07,
-    emissiveIntensity: 0.18,
+    emissive: 0x0891b2,
+    emissiveIntensity: 0.55,
+  });
+
+  const warmAccentMaterial = new THREE.MeshStandardMaterial({
+    color: PALETTE.accentWarm,
+    metalness: 0.5,
+    roughness: 0.34,
+    emissive: 0xb45309,
+    emissiveIntensity: 0.2,
   });
 
   const glowMaterial = new THREE.MeshStandardMaterial({
-    color: 0xbefef8,
-    emissive: 0x69fff7,
-    emissiveIntensity: 1.2,
-    metalness: 0.1,
+    color: 0xe0fbff,
+    emissive: PALETTE.glow,
+    emissiveIntensity: 1.6,
+    metalness: 0.05,
     roughness: 0.2,
   });
 
-  const body = new THREE.Mesh(new THREE.BoxGeometry(1.48, 1.85, 0.92), shellMaterial);
-  body.position.y = 0.2;
-  root.add(body);
+  const visorMaterial = new THREE.MeshPhysicalMaterial({
+    color: PALETTE.visor,
+    metalness: 0.85,
+    roughness: 0.08,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
+  });
 
-  const bodyTrim = new THREE.Mesh(new THREE.BoxGeometry(1.18, 1.48, 0.12), trimMaterial);
-  bodyTrim.position.set(0, 0.2, 0.49);
+  // Torso
+  const body = panel(1.55, 1.85, 0.98, shellMaterial);
+  body.position.y = 0.22;
   root.add(body);
 
   // Chest dark panel
