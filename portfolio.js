@@ -15,10 +15,11 @@
 
   const robotHost = document.querySelector("[data-robot-hero]");
   if (robotHost) {
-    import("./robot-hero.js")
+    import("./robot-hero.js?v=3")
       .then(({ initRobotHero }) => initRobotHero(robotHost))
       .catch((error) => {
-        console.warn("Robot hero failed to load.", error);
+        console.error("Robot hero failed to load:", error);
+        robotHost.setAttribute("data-robot-error", error.message || "load failed");
       });
   }
 
